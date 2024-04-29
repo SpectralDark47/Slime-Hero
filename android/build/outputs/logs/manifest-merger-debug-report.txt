@@ -49,7 +49,7 @@ INJECTED from C:\Users\wardc\AndroidStudioProjects\LibGDX\android\AndroidManifes
 activity#com.mygdx.slimehero.AndroidLauncher
 ADDED from C:\Users\wardc\AndroidStudioProjects\LibGDX\android\AndroidManifest.xml:18:9-28:20
 	android:screenOrientation
-		ADDED from C:\Users\wardc\AndroidStudioProjects\LibGDX\android\AndroidManifest.xml:21:13-50
+		ADDED from C:\Users\wardc\AndroidStudioProjects\LibGDX\android\AndroidManifest.xml:21:13-49
 	android:label
 		ADDED from C:\Users\wardc\AndroidStudioProjects\LibGDX\android\AndroidManifest.xml:20:13-45
 	android:exported

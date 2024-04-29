@@ -18,45 +18,33 @@ import com.badlogic.gdx.utils.TimeUtils;
 import java.util.Iterator;
 
 public class SlimeHero extends ApplicationAdapter {
-	private Texture dropImage;
-	private Texture bucketImage;
-	private Sound dropSound;
-	private Music rainMusic;
+	private Texture heroImage;
+	private Texture enemyImage;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private Rectangle bucket;
-	private Array<Rectangle> raindrops;
-	private long lastDropTime;
-	
+	private Rectangle hero;
+	private Rectangle enemy;
+
 	@Override
 	public void create () {
-		// load the images for the droplet and the bucket, 64x64 pixels each
-		dropImage = new Texture(Gdx.files.internal("droplet.png"));
-		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
-
-		// load the drop sound effect and the rain background "music"
-		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-
-		// start the playback of the background music immediately
-		rainMusic.setLooping(true);
-		rainMusic.play();
+		// load the images for the hero and an enemy, 32x32 pixels each
+		heroImage = new Texture(Gdx.files.internal("Player_walk_cycle-1.png"));
+		//enemyImage = new Texture(Gdx.files.internal("bucket.png"));
 
 		// a Camera and a SpriteBatch
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 360, 640);
 
 		batch = new SpriteBatch();
 
-		// adding the Bucket
-		bucket = new Rectangle();
-		bucket.x = 800 / 2 - 64 / 2;
-		bucket.y = 20;
-		bucket.width = 64;
-		bucket.height = 64;
+		// adding the Hero
+		hero = new Rectangle();
+		hero.x = 360 / 2 - 16 / 2;
+		hero.y = 20;
+		hero.width = 16;
+		hero.height = 32;
 
-		raindrops = new Array<Rectangle>();
-		spawnRaindrop();
+		enemy = new Rectangle();
 	}
 
 	@Override
@@ -66,55 +54,29 @@ public class SlimeHero extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(bucketImage, bucket.x, bucket.y);
-		for(Rectangle raindrop: raindrops){
-			batch.draw(dropImage, raindrop.x, raindrop.y);
-		}
+		batch.draw(heroImage, hero.x, hero.y);
+		//batch.draw(enemyImage, enemy.x, enemy.y);
 		batch.end();
 
-		// making the Bucket move (Touch/Mouse)
+		// making the Hero move (Touch/Mouse)
 		if(Gdx.input.isTouched()){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			bucket.x = touchPos.x - 64/2;
+			hero.x = touchPos.x - 64/2;
 		}
 
-		// making the Bucket move (Keyboard)
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
-		if(bucket.x < 0) bucket.x = 0;
-		if(bucket.x > 800 - 64) bucket.x = 800-64;
-
-		if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRaindrop();
-		for(Iterator<Rectangle> iter = raindrops.iterator(); iter.hasNext(); ){
-			Rectangle raindrop = iter.next();
-			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-			if(raindrop.y + 64 < 0) iter.remove();
-			if(raindrop.overlaps(bucket)){
-				dropSound.play();
-				iter.remove();
-			}
-		}
-	}
-
-	// adding the Raindrops
-	private void spawnRaindrop(){
-		Rectangle raindrop = new Rectangle();
-		raindrop.x = MathUtils.random(0, 800-64);
-		raindrop.y = 480;
-		raindrop.width = 64;
-		raindrop.height = 64;
-		raindrops.add(raindrop);
-		lastDropTime = TimeUtils.nanoTime();
+		// making the Hero move (Keyboard)
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) hero.x -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) hero.x += 200 * Gdx.graphics.getDeltaTime();
+		if(hero.x < 0) hero.x = 0;
+		if(hero.x > 800 - 64) hero.x = 800-64;
 	}
 
 	@Override
 	public void dispose () {
-		dropImage.dispose();
-		bucketImage.dispose();
-		dropSound.dispose();
-		rainMusic.dispose();
+		enemyImage.dispose();
+		heroImage.dispose();
 		batch.dispose();
 	}
 }
