@@ -29,7 +29,7 @@ public class SlimeHero extends ApplicationAdapter {
 	public void create () {
 		// load the images for the hero and an enemy, 32x32 pixels each
 		heroImage = new Texture(Gdx.files.internal("Player_walk_cycle-1.png"));
-		enemyImage = new Texture(Gdx.files.internal("Enemy_placeholder_1.png"));
+		enemyImage = new Texture(Gdx.files.internal("Basic_enemy_walk_cycle-1.png"));
 
 		// a Camera and a SpriteBatch
 		camera = new OrthographicCamera();
@@ -47,7 +47,7 @@ public class SlimeHero extends ApplicationAdapter {
 		enemy = new Rectangle();
 		enemy.x = 180 / 2 - 16 / 2;
 		enemy.y = 20;
-		enemy.width = 16;
+		enemy.width = 32;
 		enemy.height = 32;
 	}
 
