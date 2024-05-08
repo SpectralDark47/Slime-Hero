@@ -29,7 +29,7 @@ public class SlimeHero extends ApplicationAdapter {
 	public void create () {
 		// load the images for the hero and an enemy, 32x32 pixels each
 		heroImage = new Texture(Gdx.files.internal("Player_walk_cycle-1.png"));
-		//enemyImage = new Texture(Gdx.files.internal("bucket.png"));
+		enemyImage = new Texture(Gdx.files.internal("Basic_enemy_walk_cycle-1.png"));
 
 		// a Camera and a SpriteBatch
 		camera = new OrthographicCamera();
@@ -45,6 +45,10 @@ public class SlimeHero extends ApplicationAdapter {
 		hero.height = 32;
 
 		enemy = new Rectangle();
+		enemy.x = 180 / 2 - 16 / 2;
+		enemy.y = 20;
+		enemy.width = 32;
+		enemy.height = 32;
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class SlimeHero extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(heroImage, hero.x, hero.y);
-		//batch.draw(enemyImage, enemy.x, enemy.y);
+		batch.draw(enemyImage, enemy.x, enemy.y);
 		batch.end();
 
 		// making the Hero move (Touch/Mouse)
@@ -67,8 +71,14 @@ public class SlimeHero extends ApplicationAdapter {
 		}
 
 		// making the Hero move (Keyboard)
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) hero.x -= 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) hero.x += 200 * Gdx.graphics.getDeltaTime();
+		int moveAmount = 0;
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveAmount -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveAmount += 200 * Gdx.graphics.getDeltaTime();
+		//handle collision with enemy and finish movement
+		float heroPrevX = hero.x;
+		hero.x += moveAmount;
+		if(hero.overlaps(enemy)) hero.x = heroPrevX;
+
 		if(hero.x < 0) hero.x = 0;
 		if(hero.x > 800 - 64) hero.x = 800-64;
 	}
