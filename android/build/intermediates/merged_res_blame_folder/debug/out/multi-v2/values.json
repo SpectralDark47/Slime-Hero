@@ -4,7 +4,7 @@
             "outputFile": "com.mygdx.slimehero.android-mergeDebugResources-2:/values/values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\LibGDX\\android\\res\\values\\strings.xml",
+                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\Slime-Hero\\android\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "3",
                         "startColumns": "4",
@@ -21,17 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\LibGDX\\android\\res\\values\\color.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "55",
-                        "endOffsets": "106"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\LibGDX\\android\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\Slime-Hero\\android\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -47,6 +37,16 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "332"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\wardc\\AndroidStudioProjects\\Slime-Hero\\android\\res\\values\\color.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
                     }
                 }
             ]
