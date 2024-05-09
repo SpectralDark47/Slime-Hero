@@ -24,7 +24,7 @@ public class SlimeHero extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Rectangle hero;
-	private Rectangle enemy;
+	private static Rectangle enemy;
 	private Array<Rectangle> enemies;
 	private Texture backgroundTexture;
 	private long enemySpawnTime;
@@ -50,24 +50,26 @@ public class SlimeHero extends ApplicationAdapter {
 		hero.width = 32;
 		hero.height = 32;
 
-		enemy = new Rectangle();
-		enemy.width = 32;
-		enemy.height = 32;
 
+		//enemy array
 		enemies = new Array<Rectangle>();
 		spawnEnemy();
 	}
 
+	//spawn enemies at random x values
 	private void spawnEnemy() {
+		Rectangle enemy = new Rectangle();
 		enemy.x = MathUtils.random(0, 360 - 32);
 		enemy.y = 640;
+		enemy.width = 32;
+		enemy.height = 32;
 		enemies.add(enemy);
 		enemySpawnTime = TimeUtils.nanoTime();
 	}
 
 	@Override
 	public void render () {
-		// rendering the Bucket
+		// rendering the background, hero, and enemies
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
@@ -87,6 +89,7 @@ public class SlimeHero extends ApplicationAdapter {
 			hero.x = touchPos.x - 64/2;
 		}
 
+		//clamping the hero and spawning enemies
 		if(hero.x < 0) hero.x = 0;
 		if(hero.x > 800 - 64) hero.x = 800-64;
 		if(TimeUtils.nanoTime() - enemySpawnTime > 100000000) spawnEnemy();
@@ -97,10 +100,7 @@ public class SlimeHero extends ApplicationAdapter {
 			if(enemy.y + 64 < 0) iter.remove();
 		}
 
-		if (hero.overlaps(enemy)){
-			hitCount++;
-			Gdx.app.log("Collision", "Hit Count: " + hitCount);
-		}
+
 
 	}
 
