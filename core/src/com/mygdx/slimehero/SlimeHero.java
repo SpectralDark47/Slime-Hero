@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Logger;
 
 import java.util.Iterator;
 
@@ -24,12 +25,10 @@ public class SlimeHero extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Rectangle hero;
-	private static Rectangle enemy;
+	private Rectangle enemy;
 	private Array<Rectangle> enemies;
 	private Texture backgroundTexture;
 	private long enemySpawnTime;
-	private int hitCount = 0;
-
 	@Override
 	public void create () {
 		// load the images for the hero and an enemy, 32x32 pixels each
@@ -108,6 +107,9 @@ public class SlimeHero extends ApplicationAdapter {
 	public void dispose () {
 		enemyImage.dispose();
 		heroImage.dispose();
+		backgroundTexture.dispose();
 		batch.dispose();
 	}
+
+
 }
